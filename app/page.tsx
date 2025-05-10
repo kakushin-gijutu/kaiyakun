@@ -106,7 +106,7 @@ const subscriptionServices = [
 	{
 		name: "NewsPicks プレミアム",
 		logo: "/logos/newspicks.png",
-		cancelUrl: "https://newspicks.com/settings/subscriptions/change-plan/",
+		cancelUrl: "https://newspicks.com/settings/subscriptions/",
 		registerUrl: "https://newspicks.com/",
 		description: "経済ニュースの解説付き",
 		category: "other",
