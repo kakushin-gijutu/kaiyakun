@@ -1,8 +1,9 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useState } from "react";
-import { client } from "@/lib/client";
-import { ServiceResponseType, ServiceType } from "@/lib/type";
+import type { ServiceType } from "@/lib/type";
+import { Button } from "./ui/button";
 import {
 	Card,
 	CardContent,
@@ -10,8 +11,6 @@ import {
 	CardHeader,
 	CardTitle,
 } from "./ui/card";
-import Image from "next/image";
-import { Button } from "./ui/button";
 
 interface CardListSectionProps {
 	category: string;
@@ -23,15 +22,19 @@ const CardListSection = ({ category }: CardListSectionProps) => {
 
 	useEffect(() => {
 		const fetchServices = async () => {
+			if (!category) {
+				setServices([]);
+				setLoading(false);
+				return;
+			}
+
 			setLoading(true);
 			try {
-				const { contents } = await client.get<ServiceResponseType>({
-					endpoint: "services",
-					queries: {
-						filters: category ? `category[contains]${category}` : undefined,
-					},
-				});
-				setServices(contents || []);
+				const res = await fetch(
+					`/api/services?category=${encodeURIComponent(category)}`,
+				);
+				const data = await res.json();
+				setServices(data.contents || []);
 			} catch (error) {
 				console.error("Failed to fetch services", error);
 				setServices([]);

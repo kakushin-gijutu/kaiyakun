@@ -1,8 +1,8 @@
 "use client";
+import { useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { CategoryType } from "@/lib/type";
-import { useRouter, useSearchParams } from "next/navigation";
+import type { CategoryType } from "@/lib/type";
 
 const AppTabs = ({ categories }: { categories: CategoryType[] }) => {
 	const searchParams = useSearchParams();
