@@ -1,7 +1,4 @@
-"use client";
-
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import type { ServiceType } from "@/lib/type";
 import { Button } from "./ui/button";
 import {
@@ -13,47 +10,10 @@ import {
 } from "./ui/card";
 
 interface CardListSectionProps {
-	category: string;
+	services: ServiceType[];
 }
 
-const CardListSection = ({ category }: CardListSectionProps) => {
-	const [services, setServices] = useState<ServiceType[]>([]);
-	const [loading, setLoading] = useState(true);
-
-	useEffect(() => {
-		const fetchServices = async () => {
-			if (!category) {
-				setServices([]);
-				setLoading(false);
-				return;
-			}
-
-			setLoading(true);
-			try {
-				const res = await fetch(
-					`/api/services?category=${encodeURIComponent(category)}`,
-				);
-				const data = await res.json();
-				setServices(data.contents || []);
-			} catch (error) {
-				console.error("Failed to fetch services", error);
-				setServices([]);
-			} finally {
-				setLoading(false);
-			}
-		};
-
-		fetchServices();
-	}, [category]);
-
-	if (loading) {
-		return (
-			<div className="flex justify-center py-32">
-				<div className="animate-spin h-10 w-10 border-4 border-orange-500 border-t-transparent rounded-full" />
-			</div>
-		);
-	}
-
+const CardListSection = ({ services }: CardListSectionProps) => {
 	return (
 		<div className="py-8">
 			{services.length === 0 ? (
@@ -72,8 +32,8 @@ const CardListSection = ({ category }: CardListSectionProps) => {
 									<Image
 										src={service.image.url}
 										alt={`${service.title}のロゴ`}
-										layout="fill"
-										objectFit="contain"
+										fill
+										style={{ objectFit: "contain" }}
 										priority
 									/>
 								</div>
