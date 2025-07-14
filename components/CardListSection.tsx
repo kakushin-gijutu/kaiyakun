@@ -1,6 +1,8 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { client } from "@/lib/client";
-import { ServiceResponseType } from "@/lib/type";
-import React from "react";
+import { ServiceResponseType, ServiceType } from "@/lib/type";
 import {
 	Card,
 	CardContent,
@@ -11,67 +13,104 @@ import {
 import Image from "next/image";
 import { Button } from "./ui/button";
 
-const CardListSection = async ({ category }: { category?: string }) => {
-	const { contents: subscriptionServices } =
-		await client.get<ServiceResponseType>({
-			endpoint: "services",
-			queries: {
-				filters: `category[contains]${category}`,
-			},
-		});
+interface CardListSectionProps {
+	category: string;
+}
+
+const CardListSection = ({ category }: CardListSectionProps) => {
+	const [services, setServices] = useState<ServiceType[]>([]);
+	const [loading, setLoading] = useState(true);
+
+	useEffect(() => {
+		const fetchServices = async () => {
+			setLoading(true);
+			try {
+				const { contents } = await client.get<ServiceResponseType>({
+					endpoint: "services",
+					queries: {
+						filters: category ? `category[contains]${category}` : undefined,
+					},
+				});
+				setServices(contents || []);
+			} catch (error) {
+				console.error("Failed to fetch services", error);
+				setServices([]);
+			} finally {
+				setLoading(false);
+			}
+		};
+
+		fetchServices();
+	}, [category]);
+
+	if (loading) {
+		return (
+			<div className="flex justify-center py-32">
+				<div className="animate-spin h-10 w-10 border-4 border-orange-500 border-t-transparent rounded-full" />
+			</div>
+		);
+	}
 
 	return (
 		<div className="py-8">
-			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-				{subscriptionServices.map((service) => (
-					<Card
-						key={service.id}
-						className="hover:shadow-lg transition-shadow duration-300 bg-white"
-					>
-						<CardHeader className="bg-white rounded-t-lg">
-							<div className="w-full h-24 relative mb-4 transition-transform duration-300 ease-in-out transform group-hover:scale-105">
-								<Image
-									src={service.image.url}
-									alt={`${service.title}のロゴ`}
-									layout="fill"
-									objectFit="contain"
-									priority
-								/>
-							</div>
-							<CardTitle className="text-orange-800">{service.title}</CardTitle>
-							<CardDescription className="text-orange-600">
-								{service.description}
-							</CardDescription>
-						</CardHeader>
-						<CardContent>
-							<Button
-								asChild
-								className="w-full bg-orange-500 hover:bg-orange-600 mb-2"
-							>
-								<a
-									href={service.cancel_url}
-									target="_blank"
-									rel="noopener noreferrer"
+			{services.length === 0 ? (
+				<p className="text-center text-orange-700 pt-5">
+					サービスが見つかりませんでした。
+				</p>
+			) : (
+				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+					{services.map((service) => (
+						<Card
+							key={service.id}
+							className="hover:shadow-lg transition-shadow duration-300 bg-white"
+						>
+							<CardHeader className="bg-white rounded-t-lg">
+								<div className="w-full h-24 relative mb-4 transition-transform duration-300 ease-in-out transform group-hover:scale-105">
+									<Image
+										src={service.image.url}
+										alt={`${service.title}のロゴ`}
+										layout="fill"
+										objectFit="contain"
+										priority
+									/>
+								</div>
+								<CardTitle className="text-orange-800">
+									{service.title}
+								</CardTitle>
+								<CardDescription className="text-orange-600">
+									{service.description}
+								</CardDescription>
+							</CardHeader>
+							<CardContent>
+								<Button
+									asChild
+									className="w-full bg-orange-500 hover:bg-orange-600 mb-2"
 								>
-									解約ページへ
-								</a>
-							</Button>
-							<Button
-								asChild
-								className="w-full bg-green-500 hover:bg-green-600"
-							>
-								<a
-									href={service.register_url}
-									target="_blank"
-									rel="noopener noreferrer"
+									<a
+										href={service.cancel_url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										解約ページへ
+									</a>
+								</Button>
+								<Button
+									asChild
+									className="w-full bg-green-500 hover:bg-green-600"
 								>
-									登録ページへ
-								</a>
-							</Button>
-						</CardContent>
-					</Card>
-				))}
-			</div>
+									<a
+										href={service.register_url}
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										登録ページへ
+									</a>
+								</Button>
+							</CardContent>
+						</Card>
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
