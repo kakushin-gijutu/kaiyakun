@@ -12,6 +12,7 @@ export type CategoryType = {
 	publishedAt: string;
 	revisedAt: string;
 	title: string;
+	icon: Image;
 };
 
 export type Image = {
