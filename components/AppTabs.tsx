@@ -1,15 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { CategoryType } from "@/lib/type";
+import { cn } from "@/lib/utils";
 
 interface AppTabsProps {
 	categories: CategoryType[];
 	activeCategory: string;
+	className?: string;
 }
 
-const AppTabs = ({ categories, activeCategory }: AppTabsProps) => {
+const AppTabs = ({ categories, activeCategory, className }: AppTabsProps) => {
 	return (
-		<div className="mb-8 flex flex-wrap justify-center gap-2 rounded-lg bg-base md:mb-12 lg:mb-16">
+		<div
+			className={cn(
+				"mb-8 flex flex-wrap justify-center gap-2 rounded-lg bg-base md:mb-12",
+				className,
+			)}
+		>
 			{categories.map((category) => (
 				<Link
 					key={category.id}
