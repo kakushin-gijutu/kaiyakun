@@ -48,7 +48,7 @@ const CardListSection = ({ services }: CardListSectionProps) => {
 									解約する
 								</Link>
 								<Link
-									href={service.cancel_url}
+									href={service.register_url}
 									className="rounded-2xl bg-green px-7 py-3 font-bold text-black shadow-[0px_2px_0px_0px_#A6A4A24D]"
 									target="_blank"
 									rel="noopener noreferrer"

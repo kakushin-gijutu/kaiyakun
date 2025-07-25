@@ -1,4 +1,3 @@
-import Image from "next/image";
 import AppTabs from "@/components/AppTabs";
 import CardListSection from "@/components/CardListSection";
 import Footer from "@/components/Footer";
