@@ -30,6 +30,7 @@ export default async function Home({
 				<div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
 					<AppTabs categories={categories} activeCategory={category} />
 					<CardListSection services={services || []} />
+					<AppTabs categories={categories} activeCategory={category} />
 				</div>
 			</div>
 			<div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">

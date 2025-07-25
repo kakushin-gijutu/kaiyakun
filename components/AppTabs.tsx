@@ -9,7 +9,7 @@ interface AppTabsProps {
 
 const AppTabs = ({ categories, activeCategory }: AppTabsProps) => {
 	return (
-		<div className="mb-16 flex flex-wrap justify-center gap-2 rounded-lg bg-base md:mb-12">
+		<div className="mb-8 flex flex-wrap justify-center gap-2 rounded-lg bg-base md:mb-12 lg:mb-16">
 			{categories.map((category) => (
 				<Link
 					key={category.id}

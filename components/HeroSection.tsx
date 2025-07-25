@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function HeroSection() {
 	return (
-		<div className="relative mb-[520px] space-y-24 rounded-b-[100px] bg-base py-12 lg:mb-[240px] lg:rounded-b-[420px]">
+		<div className="relative mb-[520px] space-y-24 rounded-b-[100px] bg-base py-12 md:mb-[240px] md:rounded-b-[420px]">
 			<div className="space-y-2">
 				<Link href="/" className="block">
 					<Image
@@ -20,7 +20,7 @@ export default function HeroSection() {
 					面倒なサブスクの解約ページに一瞬で。
 				</p>
 			</div>
-			<div className="mx-auto grid max-w-4xl grid-cols-1 gap-12 px-4 pb-[40px] lg:grid-cols-2 lg:place-items-center lg:gap-2 lg:pb-[180px]">
+			<div className="mx-auto grid max-w-4xl grid-cols-1 gap-12 px-4 pb-[40px] md:grid-cols-2 md:place-items-center md:gap-2 md:px-12 md:pb-[180px] lg:px-4">
 				<div className="space-y-4">
 					<h1 className="font-bold text-[42px] leading-[160%] tracking-[10%] lg:text-[60px]">
 						退会、解約、
@@ -29,7 +29,7 @@ export default function HeroSection() {
 					</h1>
 					<p className="font-bold text-2xl tracking-widest">
 						サブスク整理、
-						<br className="block lg:hidden" />
+						<br className="block md:hidden" />
 						ここからはじめよう
 					</p>
 				</div>
@@ -38,7 +38,7 @@ export default function HeroSection() {
 					alt="hero"
 					width={237}
 					height={280}
-					className="ml-auto h-[231px] w-[195px] object-contain lg:h-[280px] lg:w-[237px]"
+					className="ml-auto h-[231px] w-[195px] object-contain md:h-[280px] md:w-[237px]"
 					fetchPriority="high"
 				/>
 			</div>
@@ -47,14 +47,14 @@ export default function HeroSection() {
 				alt="banner"
 				width={258}
 				height={592}
-				className="-translate-x-1/2 -bottom-[580px] absolute left-1/2 w-full object-contain px-2 lg:hidden"
+				className="-translate-x-1/2 -bottom-[580px] absolute left-1/2 w-full object-contain px-2 md:hidden"
 			/>
 			<Image
 				src="/images/banner_PC.png"
 				alt="banner"
 				width={608}
 				height={355}
-				className="-translate-x-1/2 -bottom-[150px] absolute left-1/2 hidden object-contain lg:block"
+				className="-translate-x-1/2 -bottom-[150px] absolute left-1/2 hidden object-contain md:block"
 			/>
 		</div>
 	);
