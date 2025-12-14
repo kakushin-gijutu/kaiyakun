@@ -1,0 +1,14 @@
+
+# web
+/web/.next
+/web/node_modules
+/web/out
+/web/.env
+/web/.env.local
+
+# native
+/native/node_modules
+/native/android/app/build
+/native/ios/Pods
+/native/.env
+/native/.env.local

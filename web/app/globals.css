@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+	--base: #fffbf6;
+	--black: #32322e;
+	--red: #f3b5b0;
+	--green: #cbdaab;
+	--orange: #edcbb1;
+	--gray: #a6a4a2;
+}
+
+@theme inline {
+	--color-base: var(--base);
+	--color-black: var(--black);
+	--color-red: var(--red);
+	--color-green: var(--green);
+	--color-orange: var(--orange);
+	--color-gray: var(--gray);
+}
